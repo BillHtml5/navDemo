@@ -8,6 +8,7 @@
 <body>
     <header></header>
     <main >
+
         <div id="mainFather" class="wapper">
 
         </div>
@@ -37,16 +38,18 @@
          index = 0
          while(index < keys['length']){
 
-            div111=document.createElement('div')
-            mainFather.appendChild(div111)
+            div=document.createElement('div')
+            div.className='row'
 
-            row=keys[index]
+            mainFather.appendChild(div)
+
+            row=keys[index] //第一第二第三个数组
 
             index2=0
-            while(index2<row['length']){
+            while(index2<row['length']){//0-9 0-8 0-6
                 kbd=document.createElement('kbd')
                 kbd.textContent=row[index2]
-                
+                kbd.className='key'
 
                 change=document.createElement('button')
                 change.textContent="E"
@@ -61,7 +64,7 @@
 
                 }
                 kbd.appendChild(change)
-                div111.appendChild(kbd)
+                div.appendChild(kbd)
                 index2=index2+1
             }     
 
