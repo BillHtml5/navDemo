@@ -22,10 +22,15 @@
             'length':3
         }
         var hash={
-            q: 'https://www.baidu.com', w: 'https://www.so.com', a: 'https://www.sougou.com',s: 'https://www.shenma.com',
-            d: 'https://www.github.com', f: 'https://www.sina.com',e: 'https://www.souhu.com',
-            r: 'https://www.so.com',g: 'https://www.sougou.com',h: 'https://www.sina.com', z: 'https://www.baidu.com',
-            x: 'https://www.github.com', c: 'https://www.sougou.com', m: 'https://www.souhu.com',
+            q: 'www.baidu.com', w: 'www.so.com', a: 'www.sougou.com',s: 'www.shenma.com',
+            d: 'www.github.com', f: 'www.sina.com',e: 'www.souhu.com',
+            r: 'www.so.com',g: 'www.sougou.com',h: 'www.sina.com', z: 'www.baidu.com',
+            x: 'www.github.com', c: 'www.sougou.com', m: 'www.souhu.com',
+        }
+        //取出localStorage 中的huancun对应的hash
+        var hashInlocalStorage=JSON.parse(localStorage.getItem('huancun' || 'null'))
+        if(hashInlocalStorage){
+            hash=hashInlocalStorage
         }
 
         //遍历keys,生成kbd标签
@@ -41,6 +46,21 @@
             while(index2<row['length']){
                 kbd=document.createElement('kbd')
                 kbd.textContent=row[index2]
+                
+
+                change=document.createElement('button')
+                change.textContent="E"
+                change.id=row[index2]
+
+                change.onclick=function(xzkjcnxlkcjlk){
+                    key=xzkjcnxlkcjlk['target']['id']
+                    input=prompt('请输入你想替换的网址')
+                    hash[key]=input//变更hash
+                    //将hash存档，方便用户刷新时读档
+                    localStorage.setItem('huancun',JSON.stringify(hash))
+
+                }
+                kbd.appendChild(change)
                 div111.appendChild(kbd)
                 index2=index2+1
             }     
@@ -57,7 +77,7 @@
             // 如果hash值中没有加http
             // 可以写成location.href='http//'+website
             // 默认不开一个新窗口
-            window.open(website,'_blank')
+            window.open('http://'+website,'_blank')
 
          }
         
