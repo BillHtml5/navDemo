@@ -2,12 +2,15 @@
 <html lang="zh-Hans">
 <head>
     <meta charset="UTF-8">
-
+    <link rel="stylesheet" href="css/style.css">
     <title>Bill 导航</title>
 </head>
 <body>
     <header></header>
-    <main id="mainFather">
+    <main >
+        <div id="mainFather" class="wapper">
+
+        </div>
 
     </main>
     <footer></footer>
@@ -31,10 +34,12 @@
             div111=document.createElement('div')
             mainFather.appendChild(div111)
 
+            row=keys[index]
+
             index2=0
-            while(index2<10){
+            while(index2<row['length']){
                 kbd=document.createElement('kbd')
-                kbd.textContent='hi'
+                kbd.textContent=row[index2]
                 div111.appendChild(kbd)
                 index2=index2+1
             }     
