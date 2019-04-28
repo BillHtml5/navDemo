@@ -28,6 +28,7 @@
             x: 'https://www.github.com', c: 'https://www.sougou.com', m: 'https://www.souhu.com',
         }
 
+        //遍历keys,生成kbd标签
          index = 0
          while(index < keys['length']){
 
@@ -47,7 +48,19 @@
             index=index+1
          }
 
+         document.onkeypress=function(xzkjcnxlkcjlk){
+            key=xzkjcnxlkcjlk['key']
+            website=hash[key]
+            console.log(website);
+            
+            // location.href=website
+            // 如果hash值中没有加http
+            // 可以写成location.href='http//'+website
+            // 默认不开一个新窗口
+            window.open(website,'_blank')
 
+         }
+        
     </script>
 </body>
 </html>
