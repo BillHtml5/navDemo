@@ -55,6 +55,10 @@
                 change.textContent="E"
                 change.id=row[index2]
 
+                img =document.createElement('img')
+               
+                img.src='http://'+hash[row[index2]]+'/favicon.ico'
+               
                 change.onclick=function(xzkjcnxlkcjlk){
                     key=xzkjcnxlkcjlk['target']['id']
                     input=prompt('请输入你想替换的网址')
@@ -63,6 +67,8 @@
                     localStorage.setItem('huancun',JSON.stringify(hash))
 
                 }
+
+                kbd.appendChild(img)
                 kbd.appendChild(change)
                 div.appendChild(kbd)
                 index2=index2+1

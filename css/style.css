@@ -1,20 +1,11 @@
-*{
-    padding:  0; margin: 0;
-}
-a{
-    text-decoration: none;
-}
+*{   padding:  0; margin: 0;}
+a{ text-decoration: none;}
 
-
-kbd{
-
-    height: 4em;
-    width: 4em;
+kbd{   height: 4em;width: 4em;
     /* 内联元素宽高无效，加上 display: inline-block 不推荐使用 */
     display: inline-block;
     /* 把小写变成大写字母 */
     text-transform: uppercase;
-
     position: relative;
 }
 kbd>button{
@@ -22,12 +13,12 @@ kbd>button{
     position: absolute;
     /* right: 0;
     bottom: 0; */
-    right: 29px;
-    bottom: 19px;
+    right: 32px;
+    bottom: 25px;
     display: none;
     background:yellow;
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     border-radius: 2px;
 }
 kbd:hover>button{
@@ -38,15 +29,21 @@ kbd:hover>button:hover{
     display: inline-block;  
     background: gray;
 }
+body{
 
+    background: gray url(../images/wall-min.jpg) no-repeat center center;
+    background-size: cover;
+}
 main{
-    margin-top: 246px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 #mainFather{
-    display: inline-block;
-    
+    display: inline-block;    
 }
 
 #mainFather div:nth-child(2){
@@ -54,6 +51,10 @@ main{
 }
 #mainFather div:nth-child(3){
     margin-left: -80px;
+}
+.wapper{
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 }
 .key{
     width: 50px;
@@ -77,4 +78,11 @@ main{
     margin:  0 10px;
 }
 
+.key img{
+    width: 12px;
+    height: 12px;
+    margin-left: -15px;
+    margin-top: 25px;
+
+}
     
