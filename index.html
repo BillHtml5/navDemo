@@ -23,10 +23,10 @@
             'length':3
         }
         var hash={
-            q: 'www.baidu.com', w: 'www.so.com', a: 'www.sougou.com',s: 'www.shenma.com',
-            d: 'www.github.com', f: 'www.sina.com',e: 'www.souhu.com',
-            r: 'www.so.com',g: 'www.sougou.com',h: 'www.sina.com', z: 'www.baidu.com',
-            x: 'www.github.com', c: 'www.sougou.com', m: 'www.souhu.com',
+            q: 'www.qq.com', w: 'www.so.com', a: 'www.sogou.com',s: 'www.bem198.com',
+            d: 'www.emc600.com', f: 'www.sina.com',e: 'www.souhu.com',
+            r: 'www.youtube.com',g: 'www.weibo.com',h: 'www.sina.com', z: 'www.baidu.com',
+            x: 'www.github.com', c: 'www.zhihu.com', m: 'www.jianshu.com',
         }
         //取出localStorage 中的huancun对应的hash
         var hashInlocalStorage=JSON.parse(localStorage.getItem('huancun' || 'null'))
@@ -56,9 +56,16 @@
                 change.id=row[index2]
 
                 img =document.createElement('img')
-               
+                if(hash[row[index2]]){
                 img.src='http://'+hash[row[index2]]+'/favicon.ico'
-               
+                }else{
+                //需要启动http-server -c -0
+                img.src='//i.loli.net/2019/04/30/5cc72863e88af.jpg'
+                   } 
+                img.onerror=function(errorimg){
+                    console.log('下载失败')
+                    errorimg.target.src='//i.loli.net/2019/04/30/5cc72863e88af.jpg'
+                }
                 change.onclick=function(xzkjcnxlkcjlk){
                     key=xzkjcnxlkcjlk['target']['id']
                     input=prompt('请输入你想替换的网址')
