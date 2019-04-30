@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <title>Bill 导航</title>
 </head>
+
 <body>
     <header></header>
-    <main >
+    <main>
 
         <div id="mainFather" class="wapper">
 
@@ -16,98 +18,119 @@
     </main>
     <footer></footer>
     <script>
-        var keys ={
-            0:['q','w','e','r','t','y','u','i','o','p'],
-            1:['a','s','d','f','g','h','j','k','l'],
-            2:['z','x','c','v','b','n','m'],
-            'length':3
+
+        //1.初始化数据
+
+
+            var keys = {
+            0: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+            1: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+            2: ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+            'length': 3
         }
-        var hash={
-            q: 'www.qq.com', w: 'www.so.com', a: 'www.sogou.com',s: 'www.bem198.com',
-            d: 'www.emc600.com', f: 'www.sina.com',e: 'www.souhu.com',
-            r: 'www.youtube.com',g: 'www.weibo.com',h: 'www.sina.com', z: 'www.baidu.com',
+        var hash = {
+            q: 'www.qq.com', w: 'www.so.com', a: 'www.sogou.com', s: 'www.bem198.com',
+            d: 'www.emc600.com', f: 'www.sina.com', e: 'www.souhu.com',
+            r: 'www.youtube.com', g: 'www.weibo.com', h: 'www.sina.com', z: 'www.baidu.com',
             x: 'www.github.com', c: 'www.zhihu.com', m: 'www.jianshu.com',
         }
         //取出localStorage 中的huancun对应的hash
-        var hashInlocalStorage=JSON.parse(localStorage.getItem('huancun' || 'null'))
-        if(hashInlocalStorage){
-            hash=hashInlocalStorage
+        var hashInlocalStorage = getFromLocalStorage('huancun')
+        if (hashInlocalStorage) {
+            hash = hashInlocalStorage
         }
 
+
+
+
+
+
+        function getFromLocalStorage(name) {
+            return JSON.parse(localStorage.getItem(name || 'null'))
+        }
+
+        function tag(tagName) {
+            return document.createElement(tagName)
+
+        }
+        function createButton(id) {
+            var button = tag('button')
+            button.textContent = "E"
+            button.id = id
+            button.onclick = function (xzkjcnxlkcjlk) {
+
+                var button2 = xzkjcnxlkcjlk['target']
+                var img2 = button2.previousSibling
+                var key = button2['id']
+                var input = prompt('请输入你想替换的网址')
+                hash[key] = input//变更hash
+
+                img2.src = 'http://' + input + '/favicon.ico'
+                img2.onerror = function (errorimg) {
+                    errorimg.target.src = '//i.loli.net/2019/04/30/5cc72863e88af.jpg'
+                }
+                //将hash存档，方便用户刷新时读档000000000000000000000
+                localStorage.setItem('huancun', JSON.stringify(hash))
+
+            }
+            return button
+        }
+        function createImg(domain) {
+            var img = tag('img')
+            if (domain) {
+                img.src = 'http://' + domain + '/favicon.ico'
+            } else {
+                //需要启动http-server -c -0
+                img.src = '//i.loli.net/2019/04/30/5cc72863e88af.jpg'
+            }
+            img.onerror = function (errorimg) {
+                console.log('下载失败')
+                errorimg.target.src = '//i.loli.net/2019/04/30/5cc72863e88af.jpg'
+            }
+            return img
+        }
+
+        //2.生成键盘
         //遍历keys,生成kbd标签
-         index = 0
-         while(index < keys['length']){
 
-            div=document.createElement('div')
-            div.className='row'
+        for (var index = 0; index < keys['length']; index = index + 1) {
 
+            var div = tag('div')
+            div.className = 'row'
             mainFather.appendChild(div)
 
-            row=keys[index] //第一第二第三个数组
+            var row = keys[index] //第一第二第三个数组
 
-            index2=0
-            while(index2<row['length']){//0-9 0-8 0-6
-                kbd=document.createElement('kbd')
-                kbd.textContent=row[index2]
-                kbd.className='key'
+            for (var index2 = 0; index2 < row['length']; index2 = index2 + 1) {
+                var kbd = tag('kbd')
+                kbd.textContent = row[index2]
+                kbd.className = 'key'
 
-                change=document.createElement('button')
-                change.textContent="E"
-                change.id=row[index2]
+                var img = createImg(hash[row[index2]])
+                var button = createButton(row[index2])
 
-                img =document.createElement('img')
-                if(hash[row[index2]]){
-                img.src='http://'+hash[row[index2]]+'/favicon.ico'
-                }else{
-                //需要启动http-server -c -0
-                img.src='//i.loli.net/2019/04/30/5cc72863e88af.jpg'
-                   } 
-                img.onerror=function(errorimg){
-                    console.log('下载失败')
-                    errorimg.target.src='//i.loli.net/2019/04/30/5cc72863e88af.jpg'
-                }
-                
-
-                change.onclick=function(xzkjcnxlkcjlk){
-                    
-                    change2=xzkjcnxlkcjlk['target']
-                    img2 = change2.previousSibling
-    
-                    key=change2['id']
-                    input=prompt('请输入你想替换的网址')
-                    hash[key]=input//变更hash
-
-                    img2.src='http://'+input +'/favicon.ico'
-
-                    img2.onerror=function(errorimg){
-                    errorimg.target.src='//i.loli.net/2019/04/30/5cc72863e88af.jpg'
-                    }
-                    //将hash存档，方便用户刷新时读档000000000000000000000
-                    localStorage.setItem('huancun',JSON.stringify(hash))
-
-                }
                 kbd.appendChild(img)
-                kbd.appendChild(change)
+                kbd.appendChild(button)
                 div.appendChild(kbd)
-                index2=index2+1
-            }     
+            }
 
-            index=index+1
-         }
+        }
 
-         document.onkeypress=function(xzkjcnxlkcjlk){
-            key=xzkjcnxlkcjlk['key']
-            website=hash[key]
+        //3.监听键盘
+        document.onkeypress = function (xzkjcnxlkcjlk) {
+            var key = xzkjcnxlkcjlk['key']
+            var website = hash[key]
             console.log(website);
-            
+
             // location.href=website
             // 如果hash值中没有加http
             // 可以写成location.href='http//'+website
             // 默认不开一个新窗口
-            window.open('http://'+website,'_blank')
+            window.open('http://' + website, '_blank')
 
-         }
-        
+        }
+
     </script>
 </body>
+
 </html>
