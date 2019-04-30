@@ -18,32 +18,44 @@
     </main>
     <footer></footer>
     <script>
-
         //1.初始化数据
+        var hashA = init()
+        var keys = hashA['keys']
+        var hash = hashA['hash']
 
+        //2.生成键盘
+        //遍历keys,生成kbd标签
+        keyBoard(keys, hash)
+        
+        //3.监听用户动作
+        listenKeyBoard(hash)
 
+        //下面是工具函数
+
+        function init() {
             var keys = {
-            0: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-            1: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-            2: ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
-            'length': 3
+                0: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+                1: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+                2: ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+                'length': 3
+            }
+            var hash = {
+                q: 'www.qq.com', w: 'www.so.com', a: 'www.sogou.com', s: 'www.bem198.com',
+                d: 'www.emc600.com', f: 'www.sina.com', e: 'www.souhu.com',
+                r: 'www.youtube.com', g: 'www.weibo.com', h: 'www.sina.com', z: 'www.baidu.com',
+                x: 'www.github.com', c: 'www.zhihu.com', m: 'www.jianshu.com',
+            }
+            //取出localStorage 中的huancun对应的hash
+            var hashInlocalStorage = getFromLocalStorage('huancun')
+            if (hashInlocalStorage) {
+                hash = hashInlocalStorage
+            }
+
+            return {
+                "keys": keys, "hash": hash
+            }
+
         }
-        var hash = {
-            q: 'www.qq.com', w: 'www.so.com', a: 'www.sogou.com', s: 'www.bem198.com',
-            d: 'www.emc600.com', f: 'www.sina.com', e: 'www.souhu.com',
-            r: 'www.youtube.com', g: 'www.weibo.com', h: 'www.sina.com', z: 'www.baidu.com',
-            x: 'www.github.com', c: 'www.zhihu.com', m: 'www.jianshu.com',
-        }
-        //取出localStorage 中的huancun对应的hash
-        var hashInlocalStorage = getFromLocalStorage('huancun')
-        if (hashInlocalStorage) {
-            hash = hashInlocalStorage
-        }
-
-
-
-
-
 
         function getFromLocalStorage(name) {
             return JSON.parse(localStorage.getItem(name || 'null'))
@@ -53,6 +65,7 @@
             return document.createElement(tagName)
 
         }
+
         function createButton(id) {
             var button = tag('button')
             button.textContent = "E"
@@ -75,6 +88,7 @@
             }
             return button
         }
+
         function createImg(domain) {
             var img = tag('img')
             if (domain) {
@@ -90,44 +104,45 @@
             return img
         }
 
-        //2.生成键盘
-        //遍历keys,生成kbd标签
+        function keyBoard(keys, hash) {
 
-        for (var index = 0; index < keys['length']; index = index + 1) {
+            for (var index = 0; index < keys['length']; index = index + 1) {
 
-            var div = tag('div')
-            div.className = 'row'
-            mainFather.appendChild(div)
+                var div = tag('div')
+                div.className = 'row'
+                mainFather.appendChild(div)
 
-            var row = keys[index] //第一第二第三个数组
+                var row = keys[index] //第一第二第三个数组
 
-            for (var index2 = 0; index2 < row['length']; index2 = index2 + 1) {
-                var kbd = tag('kbd')
-                kbd.textContent = row[index2]
-                kbd.className = 'key'
+                for (var index2 = 0; index2 < row['length']; index2 = index2 + 1) {
+                    var kbd = tag('kbd')
+                    kbd.textContent = row[index2]
+                    kbd.className = 'key'
 
-                var img = createImg(hash[row[index2]])
-                var button = createButton(row[index2])
+                    var img = createImg(hash[row[index2]])
+                    var button = createButton(row[index2])
 
-                kbd.appendChild(img)
-                kbd.appendChild(button)
-                div.appendChild(kbd)
+                    kbd.appendChild(img)
+                    kbd.appendChild(button)
+                    div.appendChild(kbd)
+                }
+
             }
-
         }
 
-        //3.监听键盘
-        document.onkeypress = function (xzkjcnxlkcjlk) {
-            var key = xzkjcnxlkcjlk['key']
-            var website = hash[key]
-            console.log(website);
+        function listenKeyBoard() {
+            document.onkeypress = function (xzkjcnxlkcjlk) {
+                var key = xzkjcnxlkcjlk['key']
+                var website = hash[key]
+                console.log(website);
 
-            // location.href=website
-            // 如果hash值中没有加http
-            // 可以写成location.href='http//'+website
-            // 默认不开一个新窗口
-            window.open('http://' + website, '_blank')
+                // location.href=website
+                // 如果hash值中没有加http
+                // 可以写成location.href='http//'+website
+                // 默认不开一个新窗口
+                window.open('http://' + website, '_blank')
 
+            }
         }
 
     </script>
